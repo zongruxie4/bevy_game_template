@@ -5,7 +5,7 @@ Template for a Game using the awesome [Bevy engine][bevy] featuring out of the b
 # What does this template give you?
 
 * small example ["game"](https://niklasei.github.io/bevy_game_template/)
-* easy setup for running the web build using [trunk](https://github.com/trunk-rs/trunk) 
+* easy setup for running the web build using [trunk] (`trunk serve`)
 * run the native version with `cargo run`
 * workflow for GitHub actions creating releases for Windows, Linux, macOS, and Web (Wasm) ready for distribution
     * the same workflow creates development builds for the mobile platforms (two separate workflows can push to the stores after [some setup](#deploy-mobile-platforms))
@@ -109,7 +109,7 @@ This project is licensed under [CC0 1.0 Universal](LICENSE) except some content 
 [nikl-mastodon]: https://mastodon.online/@nikl_me
 [firefox-sound-issue]: https://github.com/NiklasEi/bevy_kira_audio/issues/9
 [Bevy Cheat Book]: https://bevy-cheatbook.github.io/introduction.html
-[trunk]: https://trunkrs.dev/
+[trunk]: https://github.com/trunk-rs/trunk
 [android-instructions]: https://github.com/bevyengine/bevy/blob/latest/examples/README.md#setup
 [ios-instructions]: https://github.com/bevyengine/bevy/blob/latest/examples/README.md#setup-1
 [mobile_dev_with_bevy_2]: https://www.nikl.me/blog/2023/notes_on_mobile_development_with_bevy_2/
