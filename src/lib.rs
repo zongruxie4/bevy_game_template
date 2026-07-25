@@ -1,16 +1,12 @@
 #![allow(clippy::type_complexity)]
 
-mod actions;
-mod audio;
+mod gameplay;
 mod loading;
 mod menu;
-mod player;
 
-use crate::actions::ActionsPlugin;
-use crate::audio::InternalAudioPlugin;
+use crate::gameplay::GameplayPlugin;
 use crate::loading::LoadingPlugin;
 use crate::menu::MenuPlugin;
-use crate::player::PlayerPlugin;
 
 use bevy::app::App;
 #[cfg(debug_assertions)]
@@ -31,17 +27,19 @@ enum GameState {
     Menu,
 }
 
+// The outcome of the last round of gameplay. Only available after the player won or lost once.
+#[derive(Resource, Clone, Copy, Eq, PartialEq, Debug)]
+enum GameResult {
+    Won,
+    Lost,
+}
+
 pub struct GamePlugin;
 
 impl Plugin for GamePlugin {
     fn build(&self, app: &mut App) {
-        app.init_state::<GameState>().add_plugins((
-            LoadingPlugin,
-            MenuPlugin,
-            ActionsPlugin,
-            InternalAudioPlugin,
-            PlayerPlugin,
-        ));
+        app.init_state::<GameState>()
+            .add_plugins((LoadingPlugin, MenuPlugin, GameplayPlugin));
 
         #[cfg(debug_assertions)]
         {

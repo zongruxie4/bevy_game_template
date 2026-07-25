@@ -1,5 +1,7 @@
 use crate::GameState;
-use crate::actions::Actions;
+use crate::gameplay::actions::Actions;
+use crate::gameplay::collision::CircleCollider;
+use crate::gameplay::game_object::GameObject;
 use crate::loading::TextureAssets;
 use bevy::prelude::*;
 
@@ -12,16 +14,25 @@ pub struct Player;
 /// Player logic is only active during the State `GameState::Playing`
 impl Plugin for PlayerPlugin {
     fn build(&self, app: &mut App) {
-        app.add_systems(OnEnter(GameState::Playing), spawn_player)
-            .add_systems(Update, move_player.run_if(in_state(GameState::Playing)));
+        app.add_systems(
+            OnEnter(GameState::Playing),
+            (spawn_player, spawn_game_camera),
+        )
+        .add_systems(Update, move_player.run_if(in_state(GameState::Playing)));
     }
+}
+
+fn spawn_game_camera(mut commands: Commands) {
+    commands.spawn((Camera2d, Msaa::Off, GameObject));
 }
 
 fn spawn_player(mut commands: Commands, textures: Res<TextureAssets>) {
     commands.spawn((
         Sprite::from_image(textures.bevy.clone()),
-        Transform::from_translation(Vec3::new(0., 0., 1.)),
+        Transform::from_translation(Vec3::new(0., 0., 2.)),
         Player,
+        GameObject,
+        CircleCollider { radius: 128. },
     ));
 }
 
